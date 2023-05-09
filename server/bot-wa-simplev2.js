@@ -39,22 +39,22 @@ function startListening() {
 
       // Verificar o nome do repositório e definir o ID do grupo correspondente
       let groupID;
-      if (repoName === 'api-allstack') {
-        groupID = '120363129757303262@g.us';
-      } else if (repoName === 'frontend') {
+      if (repoName === 'allstack-bot') {
         groupID = '120363148607141306@g.us';
       }
 
       // Enviar a mensagem para o grupo específico no WhatsApp
-      const message = `Novo commit no repo "${repoName}":\n\nNome: ${commitMessage}\nUsuário: ${commitAuthor}\nURL: ${commitURL}\nData: ${commitDate}`;
+      if (groupID) {
+        const message = `Novo commit no repositório "${repoName}":\n\nNome: ${commitMessage}\nUsuário: ${commitAuthor}\nURL: ${commitURL}\nData: ${commitDate}`;
 
-      client.sendMessage(groupID, message)
-        .then(() => {
-          console.log('Mensagem enviada com sucesso!');
-        })
-        .catch((error) => {
-          console.error('Erro ao enviar a mensagem:', error);
-        });
+        client.sendMessage(groupID, message)
+          .then(() => {
+            console.log('Mensagem enviada com sucesso!');
+          })
+          .catch((error) => {
+            console.error('Erro ao enviar a mensagem:', error);
+          });
+      }
     }
 
     res.sendStatus(200);
